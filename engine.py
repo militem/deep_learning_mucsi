@@ -1,8 +1,9 @@
+# engine.py
 import json
 from openai import OpenAI
 from generator import generar_solicitante_aleatorio
 from agents import AgenteLLM
-from ministerio import Ministerio
+from ministerio_rag import MinisterioRAG
 import config
 
 class MotorPapersPlease:
@@ -11,15 +12,19 @@ class MotorPapersPlease:
         self.modelo = modelo
         self.saldo_creditos = config.CREDITOS_INICIALES
         self.dia_actual = 1
-        self.reglas_del_dia = ""
+        
+        # Inicializamos el RAG
+        print("Cargando Base de Datos del Ministerio (RAG)...")
+        self.ministerio = MinisterioRAG()
 
     def iniciar_dia(self, dia: int):
         self.dia_actual = dia
-        self.reglas_del_dia = Ministerio.obtener_reglas(dia)
+        # El ministerio actualiza su base de datos con las reglas de hoy
+        self.ministerio.actualizar_reglas_del_dia(dia)
+        
         print(f"\n" + "★"*50)
         print(f"★ INICIANDO DÍA {self.dia_actual} ★")
-        print(f"★ Boletín del Ministerio:")
-        print(f"{self.reglas_del_dia}")
+        print("★ Nuevas directivas han sido añadidas al Manual Oficial.")
         print("★"*50)
 
     def jugar_turno(self):
@@ -31,10 +36,23 @@ class MotorPapersPlease:
         docs_json = json.dumps(datos['documentos'], indent=2, ensure_ascii=False)
         
         solicitante = self._crear_solicitante(datos, docs_json)
-        inspector = self._crear_inspector(docs_json)
+        
+        # ==========================================
+        # MAGIA RAG: Consultamos las reglas específicas para este ciudadano
+        # ==========================================
+        # Creamos una "query" basada en lo que vemos en la ventanilla
+        query_rag = f"Ciudadano de {datos['documentos']['pasaporte']['nacionalidad']}. Documentos presentados: {list(datos['documentos'].keys())}."
+        
+        # El RAG nos devuelve solo las reglas que aplican a esta query
+        reglas_filtradas = self.ministerio.consultar_reglas_pertinentes(query_rag, n_resultados=3)
+        
+        print(f"\n[Sistema RAG]: Reglas extraídas del manual para este caso:\n{reglas_filtradas}")
+        
+        # Le pasamos solo las reglas filtradas al Inspector
+        inspector = self._crear_inspector(docs_json, reglas_filtradas)
 
         saludo = solicitante.enviar_mensaje("Acabas de llegar a la ventanilla. Di una frase corta saludando y entregando los documentos.")
-        print(f"[Solicitante]: {saludo}")
+        print(f"\n[Solicitante]: {saludo}")
         
         mensaje_para_inspector = f"El solicitante dice: '{saludo}'. Haz tu análisis visualizando la fecha actual."
         
@@ -42,15 +60,12 @@ class MotorPapersPlease:
             respuesta_inspector = inspector.enviar_mensaje(mensaje_para_inspector)
             print(f"\n[Inspector]: {respuesta_inspector}")
             
-            # === MEJORA: Detección estricta del veredicto ===
-            # Solo evalúa si encuentra el JSON *y* contiene específicamente APROBAR o DENEGAR
             es_veredicto = "{" in respuesta_inspector and ("aprobar" in respuesta_inspector.lower() or "denegar" in respuesta_inspector.lower())
             
             if es_veredicto:
                 self.evaluar_veredicto(respuesta_inspector, datos['es_valido'])
                 return
             
-            # Si no ha dado veredicto, es porque le ha hecho una pregunta al ciudadano
             respuesta_solicitante = solicitante.enviar_mensaje(respuesta_inspector)
             print(f"\n[Solicitante]: {respuesta_solicitante}")
             mensaje_para_inspector = f"El solicitante responde: '{respuesta_solicitante}'."
@@ -70,7 +85,8 @@ class MotorPapersPlease:
         """
         return AgenteLLM(self.cliente_ai, self.modelo, prompt)
 
-    def _crear_inspector(self, docs_json: str) -> AgenteLLM:
+    def _crear_inspector(self, docs_json: str, reglas_rag: str) -> AgenteLLM:
+        # Modificamos el prompt para inyectar las reglas del RAG
         prompt = f"""
         Eres el Inspector de Aduanas de Arstotzka. Eres frío y burocrático. Debes pensar lógicamente.
         
@@ -78,10 +94,10 @@ class MotorPapersPlease:
         La fecha de hoy es: {config.FECHA_ACTUAL}
         (Cualquier fecha anterior a hoy significa CADUCADO/INVÁLIDO. Si es posterior, es VÁLIDO).
         
-        REGLAS DE HOY:
-        {self.reglas_del_dia}
+        REGLAS DEL MANUAL EXTRAÍDAS PARA ESTE CASO (Presta mucha atención a esto):
+        {reglas_rag}
         
-        DOCUMENTOS PRESENTADOS: 
+        DOCUMENTOS PRESENTADOS POR EL CIUDADANO: 
         {docs_json}
         
         INSTRUCCIONES DE ACCIÓN:
@@ -119,5 +135,5 @@ class MotorPapersPlease:
             print(f"Saldo actual: {self.saldo_creditos} créditos")
             
         except json.JSONDecodeError:
-            print("\n [Error]: El Inspector no generó un JSON válido. Penalización: -5 créditos.")
+            print("\n⚠️ [Error]: El Inspector no generó un JSON válido. Penalización: -5 créditos.")
             self.saldo_creditos -= 5

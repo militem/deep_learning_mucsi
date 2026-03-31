@@ -8,7 +8,8 @@ OLLAMA_BASE_URL = "http://localhost:11434/v1"
 OLLAMA_API_KEY = "ollama"
 
 # Modelo a utilizar
-MODELO_LLM = "llama3"
+# MODELO_LLM = "llama3"
+MODELO_LLM = "llama3.2"
 
 # Configuración del juego
 CREDITOS_INICIALES = 50
