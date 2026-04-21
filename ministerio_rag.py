@@ -71,8 +71,8 @@ class MinisterioRAG:
         reglas_formateadas = "\n".join([f"- {doc}" for doc in documentos_encontrados])
         
         # --- MODO DEBUG: Mostrar qué percibe el RAG ---
-        print(f"\n🔍 [DEBUG RAG] Query enviada a la BD: '{perfil_ciudadano_json}'")
-        print(f"🧠 [DEBUG RAG] Recuerdos inyectados al Inspector:")
+        # print(f"\n🔍 [DEBUG RAG] Query enviada a la BD: '{perfil_ciudadano_json}'")
+        # print(f"🧠 [DEBUG RAG] Recuerdos inyectados al Inspector:")
         print(reglas_formateadas)
         print("-" * 50)
         # ----------------------------------------------

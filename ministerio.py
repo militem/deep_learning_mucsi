@@ -1,6 +1,9 @@
+# ministerio.py
+
 class Ministerio:
     """
     Gestiona las reglas dinámicas de Arstotzka según el día actual.
+    (Versión simple sin RAG)
     """
     @staticmethod
     def obtener_reglas(dia: int) -> str:

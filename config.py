@@ -9,7 +9,7 @@ OLLAMA_API_KEY = "ollama"
 
 # Modelo a utilizar
 # MODELO_LLM = "llama3"
-MODELO_LLM = "llama3.2"
+MODELO_LLM = "llama3"
 
 # Configuración del juego
 CREDITOS_INICIALES = 50
