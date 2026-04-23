@@ -1,0 +1,155 @@
+[
+  {
+    "id": "R_GEN_01",
+    "dia_inicio": 1,
+    "dia_fin": 31,
+    "descripcion": "Todos los solicitantes deben presentar un pasaporte vigente. Documentos caducados o falsificados implican denegacion.",
+    "categoria": "basico",
+    "pais_afectado": "todos",
+    "documento_requerido": "pasaporte"
+  },
+  {
+    "id": "R_DIA_01",
+    "dia_inicio": 1,
+    "dia_fin": 1,
+    "descripcion": "Solo se permite la entrada a ciudadanos de Arstotzka. Denegar a cualquier extranjero.",
+    "categoria": "frontera",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "pasaporte"
+  },
+  {
+    "id": "R_DIA_02",
+    "dia_inicio": 2,
+    "dia_fin": 31,
+    "descripcion": "Se permite el ingreso de extranjeros. Es obligatorio verificar la validez del pasaporte y la ciudad de emision.",
+    "categoria": "frontera",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "pasaporte"
+  },
+  {
+    "id": "R_DIA_03",
+    "dia_inicio": 3,
+    "dia_fin": 3,
+    "descripcion": "Extranjeros deben presentar un Ticket de Entrada (Entry Ticket).",
+    "categoria": "documentacion",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "ticket_entrada"
+  },
+  {
+    "id": "R_DIA_04",
+    "dia_inicio": 4,
+    "dia_fin": 25,
+    "descripcion": "El Ticket de Entrada es reemplazado por el Permiso de Entrada (Entry Permit). Debe incluir nombre, numero de pasaporte y sello de validez.",
+    "categoria": "documentacion",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "permiso_entrada"
+  },
+  {
+    "id": "R_DIA_04_ID",
+    "dia_inicio": 4,
+    "dia_fin": 31,
+    "descripcion": "Ciudadanos de Arstotzka deben presentar su Cedula de Identidad (ID Card).",
+    "categoria": "documentacion",
+    "pais_afectado": "Arstotzka",
+    "documento_requerido": "cedula_identidad"
+  },
+  {
+    "id": "R_DIA_05",
+    "dia_inicio": 5,
+    "dia_fin": 31,
+    "descripcion": "Cualquier discrepancia en datos (nombre, fecha de nacimiento, sexo) requiere interrogatorio inmediato.",
+    "categoria": "protocolo",
+    "pais_afectado": "todos",
+    "documento_requerido": "todos"
+  },
+  {
+    "id": "R_DIA_07",
+    "dia_inicio": 7,
+    "dia_fin": 31,
+    "descripcion": "Si el proposito del viaje es TRABAJO, el extranjero debe presentar un Pase de Trabajo (Work Pass).",
+    "categoria": "laboral",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "pase_trabajo"
+  },
+  {
+    "id": "R_DIA_08",
+    "dia_inicio": 8,
+    "dia_fin": 31,
+    "descripcion": "Diplomaticos requieren una Autorizacion Diplomatica que incluya a Arstotzka en la lista de paises de acceso.",
+    "categoria": "diplomacia",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "autorizacion_diplomatica"
+  },
+  {
+    "id": "R_DIA_13",
+    "dia_inicio": 13,
+    "dia_fin": 31,
+    "descripcion": "Extranjeros deben presentar un Suplemento de Identidad (ID Supplement) con huellas dactilares y descripcion fisica.",
+    "categoria": "documentacion",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "suplemento_identidad"
+  },
+  {
+    "id": "R_DIA_14",
+    "dia_inicio": 14,
+    "dia_fin": 31,
+    "descripcion": "Ciudadanos de Kolechia deben ser sometidos a registro fisico (escaneo corporal) preventivo.",
+    "categoria": "seguridad",
+    "pais_afectado": "Kolechia",
+    "documento_requerido": "escaneo_corporal"
+  },
+  {
+    "id": "R_DIA_19",
+    "dia_inicio": 19,
+    "dia_fin": 31,
+    "descripcion": "Ante alerta de contrabando, cualquier solicitante con discrepancia de peso o apariencia debe ser escaneado.",
+    "categoria": "seguridad",
+    "pais_afectado": "todos",
+    "documento_requerido": "escaneo_corporal"
+  },
+  {
+    "id": "R_DIA_21",
+    "dia_inicio": 21,
+    "dia_fin": 31,
+    "descripcion": "Emergencia sanitaria: Todos los solicitantes deben presentar un Certificado de Vacunacion vigente contra la Polio.",
+    "categoria": "salud",
+    "pais_afectado": "todos",
+    "documento_requerido": "certificado_vacunacion"
+  },
+  {
+    "id": "R_DIA_24",
+    "dia_inicio": 24,
+    "dia_fin": 31,
+    "descripcion": "Nuevos pasaportes de Arstotzka ahora requieren sello del M.O.A. Los antiguos sin sello deben ser confiscados.",
+    "categoria": "fraude",
+    "pais_afectado": "Arstotzka",
+    "documento_requerido": "pasaporte"
+  },
+  {
+    "id": "R_DIA_26",
+    "dia_inicio": 26,
+    "dia_fin": 31,
+    "descripcion": "El Permiso de Entrada y el Suplemento de Identidad son retirados. Se exige el nuevo Permiso de Acceso (Access Permit).",
+    "categoria": "documentacion",
+    "pais_afectado": "extranjeros",
+    "documento_requerido": "permiso_acceso"
+  },
+  {
+    "id": "R_DIA_27",
+    "dia_inicio": 27,
+    "dia_fin": 31,
+    "descripcion": "Se prohibe la entrada a cualquier ciudadano proveniente de la Republica de Antegria. Confiscar pasaportes.",
+    "categoria": "seguridad",
+    "pais_afectado": "Antegria",
+    "documento_requerido": "pasaporte"
+  },
+  {
+    "id": "R_COBRASTAN",
+    "dia_inicio": 1,
+    "dia_fin": 31,
+    "descripcion": "Los documentos de Cobrastan son siempre invalidos. Pais no reconocido.",
+    "categoria": "fraude",
+    "pais_afectado": "Cobrastan",
+    "documento_requerido": "todos"
+  }
+]
