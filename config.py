@@ -4,12 +4,13 @@ Ajustado para funcionar con Ollama localmente.
 """
 
 # Configuración de Ollama (Usa el puerto por defecto de Ollama)
-OLLAMA_BASE_URL = "http://localhost:11434/v1"
-OLLAMA_API_KEY = "ollama"
+OLLAMA_BASE_URL = "http://192.168.1.151:1234/v1"
+OLLAMA_API_KEY = "no-key"
 
 # Modelo a utilizar
 # MODELO_LLM = "llama3"
-MODELO_LLM = "llama3"
+# "qwen/qwen3-4b-thinking-2507"
+MODELO_LLM = "google/gemma-3-4b"
 
 # Configuración del juego
 CREDITOS_INICIALES = 50

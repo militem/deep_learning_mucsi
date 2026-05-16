@@ -3,7 +3,7 @@ import json
 from openai import OpenAI
 from generator import generar_solicitante_aleatorio
 from agents import AgenteLLM
-from ministerio import Ministerio
+from ministerio_neo4j import ministerio_db
 import config
 
 class MotorPapersPlease:
@@ -16,7 +16,7 @@ class MotorPapersPlease:
 
     def iniciar_dia(self, dia: int):
         self.dia_actual = dia
-        self.reglas_del_dia = Ministerio.obtener_reglas(dia)
+        self.reglas_del_dia = ministerio_db.obtener_reglas_del_dia(dia)
         print(f"\n" + "★"*50)
         print(f"★ INICIANDO DÍA {self.dia_actual} ★")
         print(f"★ Boletín del Ministerio:")
